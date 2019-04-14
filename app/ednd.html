@@ -1,209 +1,172 @@
 <!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2019 by anonymous (http://jsbin.com/hinewilibi/1/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
 <meta name="robots" content="noindex">
 <html>
+
 <head>
   <meta charset="utf-8">
+
   <title>Ember Starter Kit</title>
+
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ember.js/1.9.1/ember.min.js"></script>
-<style id="jsbin-css">
-html, body {
-  margin: 20px;
-}
-  
 
-$default-margin: 20px;
-$gray-light: #e1e1e1;
-$gray-medium: #aaa; 
-$green: #2ecc71; 
-$white: #fff; 
-$black: #111; 
-
-.draggable-dropzone {
-   display: block;
-   border: 3px dashed $gray-medium;
-   padding: $default-margin / 2;
-   width: 100%;
-   min-height: $default-margin * 2.5;
-   color: $gray-medium;
-   margin-bottom: $default-margin / 2;
-   &.activated {
-     border-color: $green;
-   }
-   &.deactivated {
-     border-color: $gray-light;
-   }
-}
-.draggable-item[draggable=true] {
-   display: inline-block;
-   min-width: $default-margin;
-   min-height: $default-margin;
-   background: $gray-light;
-   padding: $default-margin / 4 $default-margin / 2;
-   margin: $default-margin / 4;
-   -moz-user-select: none;
-   -khtml-user-drag: element;
-   cursor: move;
-   &:hover {
-     background-color: $gray-medium;
-   }
-}
-
-.controls {
-  margin-top: $default-margin / 2;
-}
-</style>
+  <style id="jsbin-css">
+    html, body {
+      margin: 20px;
+    }
+    .draggable-dropzone {
+      display: block;
+      border: 3px dashed gray;
+      width: 100%;
+    }
+    .draggable-item[draggable=true] {
+      display: inline-block;
+      background: #dddddd;
+      padding: 4px;
+      margin: 5px;
+      -moz-user-select: none;
+      -khtml-user-drag: element;
+      cursor: move;
+    }
+  </style>
 </head>
 <body>
 
-  <script type="text/x-handlebars">
-    <h2>Ember Drag and Drop demo <small>by @sugarpirate_</small></h2>
+<script type="text/x-handlebars">
+  {{outlet}}
+</script>
 
-    {{outlet}}
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="index">
-    <div class="selected-users">
-      {{#draggable-dropzone dropped="addUser"}}
-        <ul class="selected-users-list">
-          {{#each user in selectedUsers}}
-            <li>{{user.firstName}} 
-              <a href="#" {{action 'removeUser' user}}>&times;</a>
-            </li>
-          {{else}}
-            <p>Drag someone here</p>
-          {{/each}} 
-          
-        </ul>
-      {{/draggable-dropzone}}
-    </div>
-
-    <div class="available-users">
-      <header>
-        <h4>Users left to add: {{remainingUsersLength}} </h4>
-      </header>
-      {{#each user in remainingUsers}}
-        {{#draggable-item content=user.id}}
-          <span>{{user.firstName}}</span> 
-        {{/draggable-item}}
+<script type="text/x-handlebars" data-template-name="index">
+  <div class="selected-users">
+    {{#draggable-dropzone dropped="addUser"}}
+    <ul class="selected-users-list">
+      {{#each user in selectedUsers}}
+      <li>{{user.firstName}}
+        <a href="#" {{action 'removeUser' user}}>&times;</a>
+      </li>
       {{else}}
-        <p>There is no one left to add!</p>
+      <p>Drag someone here</p>
       {{/each}}
-    </div>
-    
-    <div class="controls">
-      <button class="btn" {{action 'addAllUsers'}}>Add everyone</button>
-      <button class="btn" {{action 'removeAllUsers'}}>Remove everyone</button>
-    </div>
-  </script>
 
+    </ul>
+    {{/draggable-dropzone}}
+  </div>
 
-  <script type="text/x-handlebars" data-template-name="components/draggable-dropzone">
-    {{yield}}
-  </script>
-  
-  <script type="text/x-handlebars" data-template-name="components/draggable-item">
-    {{yield}}
-  </script>
+  <div class="available-users">
+    <header>
+      <h4>Users left to add: {{remainingUsersLength}} </h4>
+    </header>
+    {{#each user in remainingUsers}}
+    {{#draggable-item content=user.id}}
+    <span>{{user.firstName}}</span>
+    {{/draggable-item}}
+    {{else}}
+    <p>There is no one left to add!</p>
+    {{/each}}
+  </div>
+
+  <div class="controls">
+    <button class="btn" {{action 'addAllUsers'}}>Add everyone</button>
+    <button class="btn" {{action 'removeAllUsers'}}>Remove everyone</button>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/draggable-dropzone">
+  {{yield}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/draggable-item">
+  {{yield}}
+</script>
 
 <script id="jsbin-javascript">
-var App;
+  var App;
 
-App = Ember.Application.create();
+  App = Ember.Application.create();
 
-App.Router.map(function() {
-  return {};
-});
+  App.Router.map(function() {
+    return {};
+  });
 
-App.IndexRoute = Ember.Route.extend({
-  model: function() {
-    return [
-      {
-        id: 1,
-        firstName: 'Trek',
-        lastName: 'Glowacki'
-      }, {
-        id: 2,
-        firstName: 'Tom',
-        lastName: 'Dale'
-      }, {
-        id: 3,
-        firstName: 'Yehuda',
-        lastName: 'Katz'
-      }
-    ];
-  },
-  setupController: function(controller, model) {
-    return controller.set('model', model);
-  }
-});
-
-App.DraggableDropzoneComponent = Ember.Component.extend({
-  classNames: ['draggable-dropzone'],
-  classNameBindings: ['dragClass'],
-  dragClass: 'deactivated',
-  dragLeave: function(event) {
-    event.preventDefault();
-    return this.set('dragClass', 'deactivated');
-  },
-  dragOver: function(event) {
-    event.preventDefault();
-    return this.set('dragClass', 'activated');
-  },
-  drop: function(event) {
-    var data;
-    this.set('dragClass', 'deactivated');
-    data = event.dataTransfer.getData('text/data');
-    return this.sendAction('dropped', data);
-  }
-});
-
-App.DraggableItemComponent = Ember.Component.extend({
-  classNames: ['draggable-item'],
-  attributeBindings: ['draggable'],
-  draggable: "true",
-  dragStart: function(event) {
-    return event.dataTransfer.setData('text/data', this.get('content'));
-  }
-});
-
-App.IndexController = Ember.ArrayController.extend({
-  selectedUsers: Em.A([]),
-  remainingUsers: Em.computed.setDiff('model', 'selectedUsers'),
-  remainingUsersLength: Em.computed.alias('remainingUsers.length'),
-  actions: {
-    addUser: function(userId) {
-      var selectedUsers, user;
-      selectedUsers = this.get('selectedUsers');
-      user = this.get('model').findBy('id', parseInt(userId));
-      if (!selectedUsers.contains(user)) {
-        return selectedUsers.pushObject(user);
-      }
+  App.IndexRoute = Ember.Route.extend({
+    model: function() {
+      return [
+        {
+          id: 1,
+          firstName: 'Trek',
+          lastName: 'Glowacki'
+        }, {
+          id: 2,
+          firstName: 'Tom',
+          lastName: 'Dale'
+        }, {
+          id: 3,
+          firstName: 'Yehuda',
+          lastName: 'Katz'
+        }
+      ];
     },
-    addAllUsers: function() {
-      return this.get('selectedUsers').pushObjects(this.get('remainingUsers'));
-    },
-    removeUser: function(user) {
-      return this.get('selectedUsers').removeObject(user);
-    },
-    removeAllUsers: function() {
-      return this.get('selectedUsers').clear();
+    setupController: function(controller, model) {
+      return controller.set('model', model);
     }
-  }
-});
+  });
 
+  App.DraggableDropzoneComponent = Ember.Component.extend({
+    classNames: ['draggable-dropzone'],
+    classNameBindings: ['dragClass'],
+    dragClass: 'deactivated',
+    dragLeave: function(event) {
+      event.preventDefault();
+      return this.set('dragClass', 'deactivated');
+    },
+    dragOver: function(event) {
+      event.preventDefault();
+      return this.set('dragClass', 'activated');
+    },
+    drop: function(event) {
+      var data;
+      this.set('dragClass', 'deactivated');
+      data = event.dataTransfer.getData('text/data');
+      return this.sendAction('dropped', data);
+    }
+  });
+
+  App.DraggableItemComponent = Ember.Component.extend({
+    classNames: ['draggable-item'],
+    attributeBindings: ['draggable'],
+    draggable: "true",
+    dragStart: function(event) {
+      return event.dataTransfer.setData('text/data', this.get('content'));
+    }
+  });
+
+  App.IndexController = Ember.ArrayController.extend({
+    selectedUsers: Em.A([]),
+    remainingUsers: Em.computed.setDiff('model', 'selectedUsers'),
+    remainingUsersLength: Em.computed.alias('remainingUsers.length'),
+    actions: {
+      addUser: function(userId) {
+        var selectedUsers, user;
+        selectedUsers = this.get('selectedUsers');
+        user = this.get('model').findBy('id', parseInt(userId));
+        if (!selectedUsers.contains(user)) {
+          return selectedUsers.pushObject(user);
+        }
+      },
+      addAllUsers: function() {
+        return this.get('selectedUsers').pushObjects(this.get('remainingUsers'));
+      },
+      removeUser: function(user) {
+        return this.get('selectedUsers').removeObject(user);
+      },
+      removeAllUsers: function() {
+        return this.get('selectedUsers').clear();
+      }
+    }
+  });
 </script>
+
 </body>
 </html>
