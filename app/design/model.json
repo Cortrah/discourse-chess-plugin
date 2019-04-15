@@ -1,0 +1,84 @@
+{
+  "chess-game": {
+    "id": 0,
+    "name": "Joe vs TheVolcano",
+    "game-board": {
+      "regions": [
+        {
+          "id": "a1",
+          "color": "black",
+          "row": "1",
+          "col": "a",
+          "pieceId": "WQR"
+        },
+        {
+          "id": "a2",
+          "color": "white",
+          "row": "2",
+          "col": "a",
+          "pieceId": "WQKt"
+        }
+      ],
+      "pieces": [
+        {
+          "id": "WQR",
+          "starting-pos": "a1",
+          "current-pos": "a1",
+          "type": "rook",
+          "symbol": "R",
+          "color": "white"
+        },
+        {
+          "id": "WQKt",
+          "starting-pos": "a2",
+          "current-pos": "a2",
+          "type": "knight",
+          "symbol": "Kt",
+          "color": "white"
+        },
+        {
+          "id": "WQB",
+          "starting-pos": "a3",
+          "current-pos": "a3",
+          "type": "bishop",
+          "symbol": "B",
+          "color": "white"
+        },
+        {
+          "id": "WQ",
+          "starting-pos": "a4",
+          "current-pos": "a4",
+          "type": "queen",
+          "symbol": "Q",
+          "color": "white"
+        }
+      ],
+      "taken-pieces": {
+        "player1": [],
+        "player2": []
+      },
+      "actors": {
+        "player1": {
+          "id": 0,
+          "name": "Joe",
+          "color": "White"
+        },
+        "player2": {
+          "id": 1,
+          "name": "TheVolcano",
+          "color": "Black"
+        }
+      },
+      "status": "preparing",
+      "moves": {
+        "id": "1",
+        "piece": "wp5",
+        "from": "e4",
+        "to": "e5",
+        "comment": ""
+      },
+      "currentMoveId": 0,
+      "winner": ""
+    }
+  }
+}
